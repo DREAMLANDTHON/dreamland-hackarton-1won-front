@@ -9,7 +9,8 @@ import { Link } from 'react-router-dom';
 import App from '../App';
 import { addtionalSignUp, firstSignUp, getProfile } from '../apis/member';
 import { useEffect } from 'react';
-import { addLike, deleteLike } from '../apis/like';
+import { addLike, deleteLike, deleteLikeFetch } from '../apis/like';
+import { useQuery } from 'react-query';
 
 const allergy = [
   { name: '땅콩' },
@@ -112,7 +113,7 @@ const ContentButton = styled.div`
 export default function MyPage() {
   // useEffect(() => {
   //   const newData = {
-  //     id: 1240,
+  //     id: 1239,
   //     name: 'test',
   //     email: 'test@test.com',
   //   };
@@ -123,34 +124,45 @@ export default function MyPage() {
 
   // useEffect(() => {
   //   const newData = {
-  //     id: 1243,
+  //     id: 1239,
   //     allergies: ['복숭아', '포도'],
   //     specialTypes: ['천식', '감기'],
   //   };
-  //   addtionalSignUp(newData);
+  //   addtionalSignUp(newData).then((res) => {
+  //     console.log(res.data);
+  //   });
   // }, []);
 
   // useEffect(() => {
   //   const getProf = async () => {
-  //     const id = 1243;
+  //     const id = 1239;
   //     const data = await getProfile(id);
   //     console.log(data);
   //   };
   //   getProf();
   // }, []);
 
-  // useEffect(() => {
-  //   const name = '식초';
-  //   const user_id = 7;
-  //   addLike(user_id, name).then((res) => console.log(res.data));
-  // }, []);
+  const { isLoading, data: myInfo } = useQuery(
+    [],
+    async () => getProfile(1239),
+    {
+      onSuccess: (data) => {
+        console.log('Funding data:', data, myInfo);
+      },
+    },
+  );
 
   // useEffect(() => {
-  //   const name = '식초';
-  //   const user_id = 7;
-
-  //   deleteLike(user_id, name).then((res) => console.log(res.data));
+  //   const name = { name: '포' };
+  //   const user_id = 1239;
+  //   addLike(1239, name).then((res) => console.log('debug', res.data));
   // }, []);
+
+  useEffect(() => {
+    const name = { name: '포' };
+    const user_id = 1239;
+    deleteLikeFetch(user_id, name).then((res) => console.log('debug', res));
+  }, []);
 
   return (
     <>
@@ -169,12 +181,14 @@ export default function MyPage() {
           </Text>
 
           <Contents>
-            {allergy.map(
-              (item) => (
-                console.log(item.name),
-                (<ContentButton> {item.name} </ContentButton>)
-              ),
-            )}
+            {myInfo?.allergies.map((item) => (
+              // console.log(item.name),
+              <ContentButton> {item.name} </ContentButton>
+            ))}
+            {myInfo?.specialTypes.map((item) => (
+              // console.log(item.name),
+              <ContentButton> {item.name} </ContentButton>
+            ))}
           </Contents>
         </Box>
         <Box>
@@ -184,7 +198,7 @@ export default function MyPage() {
           </Text>
 
           <Contents>
-            {MyBowl.map(
+            {myInfo?.canEats.map(
               (item) => (
                 console.log(item.name),
                 (<ContentButton> {item.name} </ContentButton>)
