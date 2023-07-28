@@ -5,22 +5,11 @@ import Category from './routes/Category';
 import CateList from './routes/CateList';
 import Login from './routes/Login';
 import styled from 'styled-components';
-// import SetAllergies from './routes/SetAllergies';
-// import SetSpecial from './routes/SetSpecial';
-
-// const cate = [
-//   {
-//     id: 1,
-//     name: '장/소스/드레싱",
-//   },
-// ];
-
-// const cateApi = [
-//   {
-//     id:1,
-//     type: "소스", "된장","혼합간장";
-//   }
-// ]
+// import Header from './components/Header';
+import SetAllergies from './routes/SetAllergies';
+import SetSpecial from './routes/SetSpecial';
+import SetStart from './routes/SetStart';
+import SetFinish from './routes/SetFinish';
 
 const Page = styled.div`
   display: flex;
@@ -29,9 +18,9 @@ const Page = styled.div`
 `;
 
 const Center = styled.div`
-  min-width: 500px;
+  min-width: 390px;
   height: 100vh;
-  background-color: lightpink;
+  background-color: white;
 `;
 
 function Router() {
@@ -43,7 +32,7 @@ function Router() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/:productId">
+            <Route exact path="/product/:productId">
               <Product />
             </Route>
             <Route exact path="/Category">
@@ -55,12 +44,18 @@ function Router() {
             <Route exact path="/Login">
               <Login />
             </Route>
-            {/* <Route exact path="/Login/setAllergies">
-          <SetAllergies />
-        </Route>
-        <Route exact path="/Login/setSpecial">
-          <SetSpecial />
-        </Route> */}
+            <Route exact path="/set">
+              <SetStart />
+            </Route>
+            <Route exact path="/set/setAllergies">
+              <SetAllergies />
+            </Route>
+            <Route exact path="/set/setSpecial">
+              <SetSpecial />
+            </Route>
+            <Route exact path="/set/setFinish">
+              <SetFinish />
+            </Route>
           </Center>
         </Page>
       </Switch>
