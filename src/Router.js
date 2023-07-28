@@ -8,6 +8,20 @@ import styled from 'styled-components';
 // import SetAllergies from './routes/SetAllergies';
 // import SetSpecial from './routes/SetSpecial';
 
+// const cate = [
+//   {
+//     id: 1,
+//     name: '장/소스/드레싱",
+//   },
+// ];
+
+// const cateApi = [
+//   {
+//     id:1,
+//     type: "소스", "된장","혼합간장";
+//   }
+// ]
+
 const Page = styled.div`
   display: flex;
   justify-content: center;
