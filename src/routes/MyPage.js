@@ -158,11 +158,11 @@ export default function MyPage() {
   //   addLike(1239, name).then((res) => console.log('debug', res.data));
   // }, []);
 
-  useEffect(() => {
-    const name = { name: '포' };
-    const user_id = 1239;
-    deleteLikeFetch(user_id, name).then((res) => console.log('debug', res));
-  }, []);
+  // useEffect(() => {
+  //   const name = { name: '포' };
+  //   const user_id = 1239;
+  //   deleteLikeFetch(user_id, name).then((res) => console.log('debug', res));
+  // }, []);
 
   return (
     <>
