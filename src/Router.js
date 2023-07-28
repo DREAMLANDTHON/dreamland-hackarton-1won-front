@@ -1,15 +1,18 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './routes/Home';
-import Product from './routes/Product';
-import Category from './routes/Category';
-import Login from './routes/Login';
-import styled from 'styled-components';
-import SetAllergies from './routes/SetAllergies';
-import SetSpecial from './routes/SetSpecial';
-import SetStart from './routes/SetStart';
-import SetFinish from './routes/SetFinish';
 import MyPage from './routes/MyPage';
 import CateListSnack from './routes/CateListSnack';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Product from "./routes/Product";
+import Category from "./routes/Category";
+import CateList from "./routes/CateList";
+import Login from "./routes/Login";
+import styled from "styled-components";
+import SetAllergies from "./routes/SetAllergies";
+import SetSpecial from "./routes/SetSpecial";
+import SetStart from "./routes/SetStart";
+import SetFinish from "./routes/SetFinish";
+import OCR from "./routes/OCR";
+import MyPage from "./routes/MyPage";
 
 const Page = styled.div`
   display: flex;
@@ -58,6 +61,9 @@ function Router() {
             </Route>
             <Route exact path="/set/setFinish">
               <SetFinish />
+            </Route>
+            <Route exact path="/ocr">
+              <OCR />
             </Route>
           </Center>
         </Page>
