@@ -59,6 +59,7 @@ table {
 }
 * {
   box-sizing: border-box;
+
 }
 /* body {
   font-weight: 300;
