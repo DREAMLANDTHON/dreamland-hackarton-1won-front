@@ -1,31 +1,31 @@
-import styled from 'styled-components';
-import Dot from '../imgs/Dot.png';
-import Bread from '../imgs/bread.png';
-import Noodles from '../imgs/noodles.png';
-import Drink from '../imgs/drink.png';
-import theme from '../theme';
-import Header from '../components/Header';
-import { Link } from 'react-router-dom';
-import App from '../App';
-import { addtionalSignUp, firstSignUp, getProfile } from '../apis/member';
-import { useEffect } from 'react';
-import { addLike, deleteLike, deleteLikeFetch } from '../apis/like';
-import { useQuery } from 'react-query';
+import styled from "styled-components";
+import Dot from "../imgs/Dot.png";
+import Bread from "../imgs/bread.png";
+import Noodles from "../imgs/noodles.png";
+import Drink from "../imgs/drink.png";
+import theme from "../theme";
+import Header from "../components/Header";
+import { Link } from "react-router-dom";
+import App from "../App";
+import { addtionalSignUp, firstSignUp, getProfile } from "../apis/member";
+import { useEffect } from "react";
+import { addLike, deleteLike, deleteLikeFetch } from "../apis/like";
+import { useQuery } from "react-query";
 
 const allergy = [
-  { name: '땅콩' },
-  { name: '대두' },
-  { name: '밀' },
-  { name: '돼지고기' },
-  { name: '복숭아' },
+  { name: "땅콩" },
+  { name: "대두" },
+  { name: "밀" },
+  { name: "돼지고기" },
+  { name: "복숭아" },
 ];
 
 const MyBowl = [
-  { name: '고래밥' },
-  { name: '착한양파 감자스틱' },
-  { name: '양파국수' },
-  { name: '아몬드 브리즈' },
-  { name: '잇츠베러 티 쿠키 더블초코' },
+  { name: "고래밥" },
+  { name: "착한양파 감자스틱" },
+  { name: "양파국수" },
+  { name: "아몬드 브리즈" },
+  { name: "잇츠베러 티 쿠키 더블초코" },
 ];
 
 const Container = styled.div`
@@ -51,15 +51,15 @@ const Ment = styled.div`
 
 const Title = styled.div`
   display: flex;
-  font-size: ${(props) => props.fontSize || '28px'};
+  font-size: ${(props) => props.fontSize || "28px"};
   font-weight: bold;
-  /* color: ${(props) => props.color || 'white'}; */
+  /* color: ${(props) => props.color || "white"}; */
   margin-bottom: 10px;
 `;
 const SubTitle = styled.div`
   display: flex;
   font-size: 18px;
-  color: ${(props) => props.color || 'white'};
+  color: ${(props) => props.color || "white"};
 `;
 const Img = styled.img`
   /* position: absolute;
@@ -113,25 +113,25 @@ const ContentButton = styled.div`
 export default function MyPage() {
   // useEffect(() => {
   //   const newData = {
-  //     id: 1239,
-  //     name: 'test',
-  //     email: 'test@test.com',
+  //     id: 1238,
+  //     name: "test",
+  //     email: "test@test.com",
   //   };
   //   firstSignUp(newData).then((res) => {
   //     console.log(res.data);
   //   });
   // }, []);
 
-  // useEffect(() => {
-  //   const newData = {
-  //     id: 1239,
-  //     allergies: ['복숭아', '포도'],
-  //     specialTypes: ['천식', '감기'],
-  //   };
-  //   addtionalSignUp(newData).then((res) => {
-  //     console.log(res.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const newData = {
+      id: "1239",
+      allergies: ["복숭아", "포도"],
+      specialTypes: ["천식", "감기"],
+    };
+    addtionalSignUp(newData).then((res) => {
+      console.log(res.data);
+    });
+  }, []);
 
   // useEffect(() => {
   //   const getProf = async () => {
@@ -147,9 +147,9 @@ export default function MyPage() {
     async () => getProfile(1239),
     {
       onSuccess: (data) => {
-        console.log('Funding data:', data, myInfo);
+        console.log("Funding data:", data, myInfo);
       },
-    },
+    }
   );
 
   // useEffect(() => {
@@ -202,7 +202,7 @@ export default function MyPage() {
               (item) => (
                 console.log(item.name),
                 (<ContentButton> {item.name} </ContentButton>)
-              ),
+              )
             )}
           </Contents>
         </Box>

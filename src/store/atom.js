@@ -2,7 +2,22 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
-  key: "loginState",
+  key: "userInfo",
   storage: localStorage,
-  defaultValue: false,
+});
+
+export const userInfoRecoil = atom({
+  key: "userInfo",
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const allergiesRecoil = atom({
+  key: "allergies",
+  default: [],
+});
+
+export const specialTypesRecoil = atom({
+  key: "specialTypes",
+  default: [],
 });

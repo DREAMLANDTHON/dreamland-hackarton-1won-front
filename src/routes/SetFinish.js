@@ -1,21 +1,28 @@
-import styled from 'styled-components';
-import theme from '../theme';
-import { Button } from '@mui/material';
-import CheckImg from '../imgs/check.png';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import theme from "../theme";
+import { Button } from "@mui/material";
+import CheckImg from "../imgs/check.png";
+import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import {
+  allergiesRecoil,
+  specialTypesRecoil,
+  userInfoRecoil,
+} from "../store/atom";
+import { addtionalSignUp } from "../apis/member";
 
-const Allergies = [
-  { id: 0, name: '돼지고기' },
-  { id: 1, name: '복숭아' },
-  { id: 2, name: '땅콩' },
-];
+// const Allergies = [
+//   { id: 0, name: '돼지고기' },
+//   { id: 1, name: '복숭아' },
+//   { id: 2, name: '땅콩' },
+// ];
 
-const Specials = [
-  { id: 0, name: '락토프리' },
-  { id: 1, name: '글리텐 프리' },
-  { id: 2, name: '할랄' },
-  { id: 3, name: '비건' },
-];
+// const Specials = [
+//   { id: 0, name: '락토프리' },
+//   { id: 1, name: '글리텐 프리' },
+//   { id: 2, name: '할랄' },
+//   { id: 3, name: '비건' },
+// ];
 
 const Page = styled.div`
   position: relative;
@@ -75,6 +82,38 @@ const ContentButton = styled.div`
 `;
 
 export default function SetFinish() {
+  const allergies = useRecoilValue(allergiesRecoil);
+  const specialTypes = useRecoilValue(specialTypesRecoil);
+  const userInfo = useRecoilValue(userInfoRecoil);
+  const handleClick = () => {
+    // const newData = {
+    //   id: "1239",
+    //   allergies: ["복숭아", "포도"],
+    //   specialTypes: ["천식", "감기"],
+    // };
+    // const newData = {
+    //   id: userInfo.id,
+    //   allergies: allergies,
+    //   specialTypes: specialTypes,
+    // };
+    // console.log(newData, typeof newData);
+    addtionalSignUp({
+      id: +userInfo.id,
+      allergies: allergies,
+      specialTypes: specialTypes,
+    }).then((res) => {
+      console.log(res.data);
+    });
+
+    // console.log(newData);
+    // addtionalSignUp({
+    //   id: userInfo.id,
+    //   allergies: allergies,
+    //   specialTypes: specialTypes,
+    // }).then((res) => {
+    //   console.log(res.data);
+    // });
+  };
   return (
     <>
       <Page>
@@ -89,16 +128,16 @@ export default function SetFinish() {
         <ContentContainer>
           <SubTitle> 알레르기 성분 </SubTitle>
           <Content>
-            {Allergies?.map((All) => (
-              <ContentButton> {All.name} </ContentButton>
+            {allergies?.map((All) => (
+              <ContentButton> {All} </ContentButton>
             ))}
           </Content>
         </ContentContainer>
         <ContentContainer>
           <SubTitle> 특이 성분 </SubTitle>
           <Content>
-            {Specials?.map((spe) => (
-              <ContentButton> {spe.name} </ContentButton>
+            {specialTypes?.map((spe) => (
+              <ContentButton> {spe} </ContentButton>
             ))}
           </Content>
         </ContentContainer>
@@ -106,13 +145,14 @@ export default function SetFinish() {
         <Link to="/">
           <Button
             style={{
-              position: 'absolute',
-              bottom: '20px',
-              right: '30px',
-              width: '80%',
-              height: '56px',
+              position: "absolute",
+              bottom: "20px",
+              right: "30px",
+              width: "80%",
+              height: "56px",
             }}
             variant="contained"
+            onClick={handleClick}
           >
             OKAY
           </Button>

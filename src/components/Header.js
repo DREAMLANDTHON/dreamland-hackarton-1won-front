@@ -4,6 +4,9 @@ import user from "../imgs/User.png";
 import { Link, useHistory } from "react-router-dom";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import GoogleLogin from "./auth/GoogleButton";
+import { Box, Button } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { userInfoRecoil } from "../store/atom";
 
 const Head = styled.div`
   display: flex;
@@ -33,6 +36,14 @@ export default function Header(props) {
   const handleGoBack = () => {
     history.goBack();
   };
+
+  const [userInfoState, setUserInfoState] = useRecoilState(userInfoRecoil);
+
+  const handleClick = () => {
+    setUserInfoState(null);
+    history.push("/");
+  };
+
   return (
     <>
       <Head backgroundColor={props.backgroundColor}>
@@ -45,11 +56,23 @@ export default function Header(props) {
             <Img src={logo} alt="logo" />
           </Link>
         )}
-
-        <Link to="/MyPage">
-          <Img style={{ display: props.userDisplay }} src={user} alt="user" />
-        </Link>
-        <GoogleLogin />
+        <Box sx={{ display: "flex", gap: "20px" }}>
+          {userInfoState === null ? (
+            <GoogleLogin />
+          ) : (
+            <Button
+              onClick={handleClick}
+              variant="text"
+              color="warning"
+              sx={{ px: "0", py: "0", fontSize: "13px" }}
+            >
+              로그아웃
+            </Button>
+          )}
+          <Link to="/MyPage">
+            <Img style={{ display: props.userDisplay }} src={user} alt="user" />
+          </Link>
+        </Box>
       </Head>
     </>
   );

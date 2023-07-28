@@ -4,17 +4,22 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import React, { useRef } from "react";
 // import { userLogin, userSignup } from "../apis/users";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
+import { userInfoRecoil } from "../../store/atom";
 import {
   isLoginState,
   isRegisterModalState,
   userLoginInfo,
 } from "../../store/atom";
+import { firstSignUp } from "../../apis/member";
+import { useHistory } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 // const clientId = "425799046707-34ek2gt3b287jdl3knk9ib796l998trt.apps.googleusercontent.com";
 
 export default function GoogleButton() {
+  const history = useHistory();
+  const setUserRecoil = useSetRecoilState(userInfoRecoil);
   //   const navigate = useNavigate();
   //   const setRegisterModalState = useSetRecoilState(isRegisterModalState);
   //   const setUserLoginInfo = useSetRecoilState(userLoginInfo);
@@ -23,8 +28,31 @@ export default function GoogleButton() {
 
   //   const onSuccess = async (credentialResponse) => {};
   const onSuccess = async (credentialResponse) => {
-    const decodedToken = jwtDecode(credentialResponse.credential);
-    console.log(decodedToken);
+    const decodedToken = await jwtDecode(credentialResponse.credential);
+
+    firstSignUp({
+      id: +decodedToken.sub.slice(0, 9),
+      name: decodedToken.family_name,
+      email: decodedToken.email,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setUserRecoil({
+          id: decodedToken.sub.slice(0, 9),
+          name: decodedToken.family_name,
+          email: decodedToken.email,
+        });
+        history.push("/set");
+      })
+      .catch((err) => {
+        console.log(err);
+        setUserRecoil({
+          id: decodedToken.sub.slice(0, 9),
+          name: decodedToken.family_name,
+          email: decodedToken.email,
+        });
+      });
+
     //   userLogin(decodedToken.sub)
     //     .then((response) => {
     //       if (response.data.isRegistered === true) {
