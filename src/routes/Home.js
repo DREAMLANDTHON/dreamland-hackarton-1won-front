@@ -7,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router';
+import Header from '../components/Header';
 
 const Container = style.div`
   display: flex;
@@ -80,6 +82,7 @@ const CategoryButton = style.button`
 export default function Home() {
   return (
     <>
+      <Header />
       <Container>
         <Title src={titleImg} />
         <Search>
