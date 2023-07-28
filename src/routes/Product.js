@@ -4,6 +4,8 @@ import theme from '../theme';
 import Logo_White from '../imgs/Logo_White.png';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Spoon from '../imgs/Spoon.png';
+import CanEat from '../imgs/CanEat.png';
+import Saved from '../imgs/Saved.png';
 
 const products = {
   img: 'https://image.homeplus.kr/td/efa1a935-1101-472f-b554-4feae2014745',
@@ -39,15 +41,24 @@ const Page = styled.div`
   align-items: center;
   justify-content: space-evenly;
   height: 90vh;
-  /* border: 1px solid black; */
+  max-width: 390px;
 `;
 
 const ProductImg = styled.img`
   width: 200px;
 `;
 
+const Title = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Img = styled.img`
   width: 100px;
+`;
+const SavedImg = styled.img`
+  width: 70px;
+  margin-left: 10px;
 `;
 
 const Slide = styled.div`
@@ -137,6 +148,7 @@ const Div = styled.div`
 
 export default function Product() {
   let isOk = false;
+  let isSaved = false;
   return (
     <>
       <Header />
@@ -144,29 +156,19 @@ export default function Product() {
         <ProductImg src={products.img} />
 
         <Slide>
-          <Img src={Logo_White} />
-          <Divider>
-            {[
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-            ].map((item) => (
-              <Div />
-            ))}
-          </Divider>
+          <Grids>
+            <Title>
+              <Img src={Logo_White} />
+              <Divider>
+                {['', '', '', '', '', '', '', '', '', '', '', ''].map(
+                  (item) => (
+                    <Div />
+                  ),
+                )}
+              </Divider>
+            </Title>
+            {isSaved ? <SavedImg src={Saved} /> : <SavedImg src={CanEat} />}
+          </Grids>
 
           <div>
             <Grids>

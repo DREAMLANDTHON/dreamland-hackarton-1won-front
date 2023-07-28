@@ -1,35 +1,38 @@
 import style from 'styled-components';
 import titleImg from '../imgs/titleImg.png';
 import theme from '../theme';
-
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
 import Header from '../components/Header';
+import backgroundImg from '../imgs/Background.png';
 
 const Container = style.div`
   display: flex;
   justify-content: center;
+  background-image: url(${backgroundImg});
+  background-size: cover;
+  background-position: center;
+  min-height: 90vh; 
 `;
 
 const Title = style.img`
   position: absolute;
-  top: 30%;
+  top: 40%;
 `;
 
 const Search = styled('div')(({ theme }) => ({
   position: 'absolute',
-  top: '35%',
-  border: `1px solid ${theme.palette.subRed.main}`,
+  top: '45%',
+  border: `1px solid ${theme.palette.mono.mono1}`,
   borderRadius: theme.shape.borderRadius,
   marginLeft: 0,
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
+  width: '90%',
+  maxWidth: `${390 * 0.9}px`,
+  height: '56px',
+  backgroundColor: `rgba(255, 255, 255, 0.5)`,
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -68,21 +71,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const CategoryButton = style.button`
   position: absolute;
-  top: 45%;
+  top: 55%;
   left: 50%;
   transform: translateX(-50%);
   width: 220px;
   height:35px;
   border: none;
   border-radius: 25px;
-  background-color: ${theme.palette.mono.mono3};
+  background-color: rgba(255, 255, 255, 0.8);
   color: ${theme.palette.mono.mono8};
 `;
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header backgroundColor={theme.palette.mono.black} />
       <Container>
         <Title src={titleImg} />
         <Search>
@@ -92,10 +95,7 @@ export default function Home() {
           <CameraIconWrapper>
             <CameraAltIcon />
           </CameraIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
+          <StyledInputBase inputProps={{ 'aria-label': 'search' }} />
         </Search>
         <Link to="/Category">
           <CategoryButton>나의 맞춤형 식품 찾아보기</CategoryButton>
