@@ -5,8 +5,10 @@ import Category from './routes/Category';
 import CateList from './routes/CateList';
 import Login from './routes/Login';
 import styled from 'styled-components';
-// import SetAllergies from './routes/SetAllergies';
-// import SetSpecial from './routes/SetSpecial';
+import Header from './components/Header';
+import SetAllergies from './routes/SetAllergies';
+import SetSpecial from './routes/SetSpecial';
+import SetStart from './routes/SetStart';
 
 // const cate = [
 //   {
@@ -29,9 +31,9 @@ const Page = styled.div`
 `;
 
 const Center = styled.div`
-  min-width: 500px;
+  min-width: 390px;
   height: 100vh;
-  background-color: lightpink;
+  background-color: white;
 `;
 
 function Router() {
@@ -40,6 +42,7 @@ function Router() {
       <Switch>
         <Page>
           <Center>
+            <Header />
             <Route exact path="/">
               <Home />
             </Route>
@@ -55,12 +58,15 @@ function Router() {
             <Route exact path="/Login">
               <Login />
             </Route>
-            {/* <Route exact path="/Login/setAllergies">
-          <SetAllergies />
-        </Route>
-        <Route exact path="/Login/setSpecial">
-          <SetSpecial />
-        </Route> */}
+            <Route exact path="/set">
+              <SetStart />
+            </Route>
+            <Route exact path="/set/setAllergies">
+              <SetAllergies />
+            </Route>
+            <Route exact path="/set/setSpecial">
+              <SetSpecial />
+            </Route>
           </Center>
         </Page>
       </Switch>
