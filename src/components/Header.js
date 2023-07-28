@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import logo from '../imgs/Logo.png';
-import user from '../imgs/User.png';
-import { Link, useHistory } from 'react-router-dom';
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import styled from "styled-components";
+import logo from "../imgs/Logo.png";
+import user from "../imgs/User.png";
+import { Link, useHistory } from "react-router-dom";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import GoogleLogin from "./auth/GoogleButton";
 
 const Head = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Head = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: ${(props) => props.backgroundColor || '#ffffff'};
+  background-color: ${(props) => props.backgroundColor || "#ffffff"};
 `;
 
 const Img = styled.img`
@@ -35,7 +36,7 @@ export default function Header(props) {
   return (
     <>
       <Head backgroundColor={props.backgroundColor}>
-        {props.logoDisplay === 'none' ? (
+        {props.logoDisplay === "none" ? (
           <BackButton onClick={handleGoBack}>
             <ArrowBackIosNewRoundedIcon color="mono" />
           </BackButton>
@@ -48,6 +49,7 @@ export default function Header(props) {
         <Link to="/MyPage">
           <Img style={{ display: props.userDisplay }} src={user} alt="user" />
         </Link>
+        <GoogleLogin />
       </Head>
     </>
   );

@@ -1,12 +1,13 @@
-import React from 'react';
-import { createGlobalStyle } from 'styled-components';
-import { ThemeProvider } from '@mui/material/styles';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import theme from './theme';
-import Router from './Router';
-import { useParams } from 'react-router';
-import Header from './components/Header';
+import React from "react";
+import { createGlobalStyle } from "styled-components";
+import { ThemeProvider } from "@mui/material/styles";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
+import theme from "./theme";
+import Router from "./Router";
+import { useParams } from "react-router";
+import Header from "./components/Header";
+import { RecoilRoot } from "recoil";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
@@ -81,9 +82,11 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <Router />
-          <ReactQueryDevtools initialIsOpen={true} />
+          <RecoilRoot>
+            <GlobalStyle />
+            <Router />
+            <ReactQueryDevtools initialIsOpen={true} />
+          </RecoilRoot>
         </ThemeProvider>
       </QueryClientProvider>
     </>
