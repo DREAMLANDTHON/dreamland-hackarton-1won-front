@@ -14,6 +14,9 @@ const Container = styled.div`
   gap: 8px;
   justify-content: center;
   align-items: center;
+  height: 90vh;
+
+  background-color: ${theme.palette.mono.black};
 `;
 
 const Item = styled.div`
@@ -25,9 +28,15 @@ const Item = styled.div`
   padding: 20px;
   border-radius: 14px;
 `;
+
+const Ment = styled.div`
+  min-width: 370px;
+  display: flex;
+`;
+
 const Title = styled.div`
   display: flex;
-  font-size: 28px;
+  font-size: ${(props) => props.fontSize || '28px'};
   font-weight: bold;
   color: ${(props) => props.color || 'white'};
   margin-bottom: 10px;
@@ -47,9 +56,24 @@ const Img = styled.img`
 export default function Category() {
   return (
     <>
-      <Header />
+      <Header backgroundColor={theme.palette.mono.black} />
       <Container>
-        <Link to="/set">
+        <Ment>
+          <Title fontSize="22px">
+            안전하고 맛있게 먹을 수 있는
+            <br /> 맞춤형 식품을 추천해줄게요!
+          </Title>
+        </Ment>
+        <Link
+          to={{
+            pathname: '/category/1',
+            state: {
+              title: 'Snack',
+              SubTitle: '과자',
+              img: 'Cookie',
+            },
+          }}
+        >
           <Item>
             <Title>Snack</Title>
             <SubTitle>과자</SubTitle>

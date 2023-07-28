@@ -9,6 +9,7 @@ import SetAllergies from './routes/SetAllergies';
 import SetSpecial from './routes/SetSpecial';
 import SetStart from './routes/SetStart';
 import SetFinish from './routes/SetFinish';
+import MyPage from './routes/MyPage';
 
 const Page = styled.div`
   display: flex;
@@ -42,6 +43,9 @@ function Router() {
             </Route>
             <Route exact path="/Login">
               <Login />
+            </Route>
+            <Route exact path="/MyPage">
+              <MyPage />
             </Route>
             <Route exact path="/set">
               <SetStart />
