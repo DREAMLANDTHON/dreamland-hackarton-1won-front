@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import theme from '../theme';
@@ -6,33 +7,11 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import Spoon from '../imgs/Spoon.png';
 import CanEat from '../imgs/CanEat.png';
 import Saved from '../imgs/Saved.png';
-
-const products = {
-  img: 'https://image.homeplus.kr/td/efa1a935-1101-472f-b554-4feae2014745',
-  name: '고래밥 볶음양념맛',
-  type: '과자(유처리제품)',
-  allergy: ['땅콩', '대두', '밀', '돼지고기', '복숭아'],
-  ingredients: [
-    '밀가루',
-    '알파옥수수분말',
-    '변성전분',
-    '식물성유지1',
-    '볶음양념맛시즈닝',
-    '식물성유지2',
-    '갈색설탕',
-    '백설탕',
-    '유단백혼합분말',
-    '전분',
-    '바베큐양념페이스트',
-    '혼합치즈분말',
-    '패각칼슘',
-    '식염',
-    '산도조절제',
-    '유화제',
-  ],
-};
-
-const myAllergies = ['대두', '밀'];
+import { useQuery } from 'react-query';
+import { getFood } from '../apis/food';
+import { getProfile } from '../apis/member';
+import { useParams } from 'react-router-dom';
+import { addLike, deleteLikeFetch } from '../apis/like';
 
 const Page = styled.div`
   position: relative;
@@ -75,7 +54,7 @@ const Slide = styled.div`
 const Grids = styled.div`
   min-width: 320px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   padding: 5px;
 `;
 
@@ -131,6 +110,7 @@ const Ingredient = styled.div`
   font-size: 14px;
   font-weight: 100;
   color: ${theme.palette.mono.mono1};
+  line-height: 1.4;
 `;
 
 const Divider = styled.div`
@@ -146,14 +126,55 @@ const Div = styled.div`
   background-color: ${theme.palette.mono.mono2};
 `;
 
-export default function Product() {
-  let isOk = false;
-  let isSaved = false;
+export default function Product(props) {
+  const params = useParams();
+  console.log('useParam', params.productId);
+
+  const id = 1239;
+  const { isLoading, data: info } = useQuery(
+    ['foodData'],
+    () => getFood(params.productId),
+    {
+      onSuccess: (data) => {
+        console.log('Food data:', data);
+      },
+    },
+  );
+  const { isLoading: isPro, data: myAllergies } = useQuery(
+    ['foodData', id],
+    () => getProfile(id),
+    {
+      onSuccess: (data) => {
+        console.log('profile :', data);
+      },
+    },
+  );
+
+  const allergyArray = info?.allergy.split(', ');
+  const rawmtrlArray = info?.rawmtrl.split(', ');
+
+  const isAllergic = allergyArray?.some((allergy) =>
+    myAllergies?.allergies.some((item) => item.name === allergy),
+  );
+
+  const [isSaved, setIsSaved] = useState(false);
+  const nameObject = {
+    name: info?.prdlstNm,
+  };
+  const toggleSaved = () => {
+    setIsSaved((prevIsSaved) => !prevIsSaved);
+    isSaved === false
+      ? addLike(1239, nameObject).then((res) => console.log('debug', res.data))
+      : deleteLikeFetch(1239, nameObject).then((res) =>
+          console.log('debug', res),
+        );
+  };
+
   return (
     <>
       <Header />
       <Page>
-        <ProductImg src={products.img} />
+        <ProductImg src={info?.imgurl1} />
 
         <Slide>
           <Grids>
@@ -167,21 +188,25 @@ export default function Product() {
                 )}
               </Divider>
             </Title>
-            {isSaved ? <SavedImg src={Saved} /> : <SavedImg src={CanEat} />}
+            <SavedImg
+              src={isSaved ? Saved : CanEat}
+              alt={isSaved ? 'Saved' : 'CanEat'}
+              onClick={toggleSaved}
+            />
           </Grids>
 
           <div>
             <Grids>
               <Value>제품명</Value>
-              <Item> {products.name} </Item>
+              <Item> {info?.prdlstNm} </Item>
             </Grids>
             <Grids>
               <Value>식품유형</Value>
-              <Item> {products.type} </Item>
+              <Item> {info?.prdkind} </Item>
             </Grids>
           </div>
 
-          {isOk ? (
+          {isAllergic ? (
             <Alert backgroundColor={theme.palette.primary.main}>
               <WarningRoundedIcon color="mono" />
               알레르기 주의 성분이 포함되어 있어요
@@ -194,19 +219,25 @@ export default function Product() {
           )}
 
           <Container>
-            {products.allergy.map((allergy) =>
-              myAllergies.includes(allergy) ? (
-                <Allergy color={theme.palette.subRed.main}>{allergy},</Allergy>
-              ) : (
-                <Allergy> {allergy}, </Allergy>
-              ),
-            )}
+            {allergyArray?.map((allergy) => {
+              const isAllergic = myAllergies.allergies.some(
+                (item) => item.name === allergy,
+              );
+              return (
+                <Allergy
+                  key={allergy}
+                  color={isAllergic ? theme.palette.subRed.main : undefined}
+                >
+                  {allergy},
+                </Allergy>
+              );
+            })}
           </Container>
 
           <Ingredients>
             <Value>원재료정보</Value>
             <Container>
-              {products.ingredients.map((ingre) => (
+              {rawmtrlArray?.map((ingre) => (
                 <Ingredient> {ingre}, </Ingredient>
               ))}
             </Container>
