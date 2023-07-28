@@ -5,7 +5,8 @@ import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import backgroundImg from '../imgs/Background.png';
 
@@ -83,6 +84,16 @@ const CategoryButton = style.button`
 `;
 
 export default function Home() {
+  const [searchText, setSearchText] = useState('');
+  const history = useHistory();
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      // Enter 키를 누르면 Product 페이지로 이동하면서 URL 파라미터로 searchText 값을 전달
+      history.push(`/Product/${searchText}`);
+    }
+  };
+
   return (
     <>
       <Header backgroundColor={theme.palette.mono.black} />
@@ -95,7 +106,12 @@ export default function Home() {
           <CameraIconWrapper>
             <CameraAltIcon />
           </CameraIconWrapper>
-          <StyledInputBase inputProps={{ 'aria-label': 'search' }} />
+          <StyledInputBase
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
         </Search>
         <Link to="/Category">
           <CategoryButton>나의 맞춤형 식품 찾아보기</CategoryButton>

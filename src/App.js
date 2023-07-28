@@ -9,6 +9,7 @@ import { useParams } from "react-router";
 import Header from "./components/Header";
 import { RecoilRoot } from "recoil";
 
+
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
 html, body, div, span, applet, object, iframe,
@@ -76,8 +77,6 @@ a {
 const queryClient = new QueryClient();
 
 function App() {
-  // const { params } = useParams();
-  // console.log('🚀 ~ file: Router.js:42 ~ Router ~ params:', params);
   return (
     <>
       <QueryClientProvider client={queryClient}>

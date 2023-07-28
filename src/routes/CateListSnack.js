@@ -8,6 +8,8 @@ import WholeCookie from '../imgs/whoie_cookie.png';
 // import Drink from '../imgs/drink.png';
 import theme from '../theme';
 import Header from '../components/Header';
+import { useQuery } from 'react-query';
+import { getCategorys } from '../apis/food';
 
 const products = [
   {
@@ -141,15 +143,18 @@ const ProductRecommImg = styled.img`
   position: absolute;
   top: 10%;
   right: 10%;
-  /* width: 100%;
-  height: 100%; */
   z-index: 1;
 `;
-export default function CateList() {
-  // const location = useLocation();
-  // const { title, SubTitle, img } = location.state;
-  // console.log('title', title);
-  // console.log('Img', img);
+export default function CateListSnack() {
+  const { isLoading, data: info } = useQuery(
+    ['CateData'],
+    () => getCategorys('빙과'),
+    {
+      onSuccess: (data) => {
+        console.log('Category data:', data);
+      },
+    },
+  );
   return (
     <>
       <Header

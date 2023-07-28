@@ -1,3 +1,5 @@
+import MyPage from './routes/MyPage';
+import CateListSnack from './routes/CateListSnack';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import Product from "./routes/Product";
@@ -40,7 +42,7 @@ function Router() {
               <Category />
             </Route>
             <Route exact path="/Category/:categoryId">
-              <CateList />
+              <CateListSnack />
             </Route>
             <Route exact path="/Login">
               <Login />
