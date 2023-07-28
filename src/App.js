@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import theme from './theme';
 import Router from './Router';
+import { useParams } from 'react-router';
+import Header from './components/Header';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
@@ -72,6 +74,8 @@ a {
 const queryClient = new QueryClient();
 
 function App() {
+  // const { params } = useParams();
+  // console.log('🚀 ~ file: Router.js:42 ~ Router ~ params:', params);
   return (
     <>
       <QueryClientProvider client={queryClient}>

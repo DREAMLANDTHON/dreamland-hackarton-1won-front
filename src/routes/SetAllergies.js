@@ -3,21 +3,38 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import theme from '../theme';
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Page = styled.div`
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Steps = styled.div`
+  display: flex;
+  margin-top: 100px;
+`;
+
+const Step = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${(props) =>
+    props.backgroundColor || theme.palette.mono.mono4};
+  margin-right: 5px;
 `;
 
 const Container = styled.div`
-  position: absolute;
-  top: 20%;
   max-width: 320px;
   min-width: 320px;
 `;
 
 const Title = styled.div`
-  font-size: 18px;
+  margin-top: 200px;
+  font-size: 20px;
   color: ${theme.palette.mono.mono8};
   font-weight: bold;
   margin-bottom: 10px;
@@ -32,6 +49,10 @@ export default function SetAllergies() {
   return (
     <>
       <Page>
+        <Steps>
+          <Step backgroundColor={theme.palette.subRed.main} />
+          <Step />
+        </Steps>
         <Container>
           <Title> 알레르기 반응이 있는 식품을 알려주세요 </Title>
           <SubTitle> ex) 복숭아, 호두, 갑각류 등 </SubTitle>
@@ -46,18 +67,21 @@ export default function SetAllergies() {
             )}
           />
         </Container>
-        <Button
-          style={{
-            position: 'absolute',
-            bottom: '5%',
-            right: '10%',
-            width: '150px',
-            height: '56px',
-          }}
-          variant="contained"
-        >
-          NEXT
-        </Button>
+
+        <Link to="/set/setSpecial">
+          <Button
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              right: '30px',
+              width: '150px',
+              height: '56px',
+            }}
+            variant="outlined"
+          >
+            NEXT
+          </Button>
+        </Link>
       </Page>
     </>
   );

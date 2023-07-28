@@ -5,24 +5,11 @@ import Category from './routes/Category';
 import CateList from './routes/CateList';
 import Login from './routes/Login';
 import styled from 'styled-components';
-import Header from './components/Header';
+// import Header from './components/Header';
 import SetAllergies from './routes/SetAllergies';
 import SetSpecial from './routes/SetSpecial';
 import SetStart from './routes/SetStart';
-
-// const cate = [
-//   {
-//     id: 1,
-//     name: '장/소스/드레싱",
-//   },
-// ];
-
-// const cateApi = [
-//   {
-//     id:1,
-//     type: "소스", "된장","혼합간장";
-//   }
-// ]
+import SetFinish from './routes/SetFinish';
 
 const Page = styled.div`
   display: flex;
@@ -42,11 +29,10 @@ function Router() {
       <Switch>
         <Page>
           <Center>
-            <Header />
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/:productId">
+            <Route exact path="/product/:productId">
               <Product />
             </Route>
             <Route exact path="/Category">
@@ -66,6 +52,9 @@ function Router() {
             </Route>
             <Route exact path="/set/setSpecial">
               <SetSpecial />
+            </Route>
+            <Route exact path="/set/setFinish">
+              <SetFinish />
             </Route>
           </Center>
         </Page>
