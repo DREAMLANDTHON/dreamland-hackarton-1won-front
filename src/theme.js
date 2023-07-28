@@ -15,6 +15,7 @@ const theme = createTheme({
       main: '#FF2C00', // 빨강
     },
     mono: {
+      main: '#FFFFFF',
       mono1: '#FFFFFF', // 흰색
       mono2: '#F3F3F4', // 살짝 어두운 흰색
       mono3: '#E7E8E9', // 어두운 하양
@@ -22,10 +23,8 @@ const theme = createTheme({
       mono5: '#9FA3A9', // 밝은 회색
       mono6: '#6F757E', // 회색
       mono7: '#3F4753', // 진한 회색
-      mono8: '#27303E', // 더 진한 회색
-    },
-    black: {
-      main: '#000000', // 검정
+      mono8: '#2F2E2D', // 더 진한 회색
+      black: '#000000', // 검정
     },
   },
 });

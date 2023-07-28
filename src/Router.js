@@ -5,7 +5,6 @@ import Category from './routes/Category';
 import CateList from './routes/CateList';
 import Login from './routes/Login';
 import styled from 'styled-components';
-// import Header from './components/Header';
 import SetAllergies from './routes/SetAllergies';
 import SetSpecial from './routes/SetSpecial';
 import SetStart from './routes/SetStart';

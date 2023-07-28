@@ -4,13 +4,16 @@ import user from '../imgs/User.png';
 
 const Head = styled.div`
   display: flex;
+  height: 10vh;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 30px;
+  align-items: center;
+  padding: 0 20px;
 `;
 
 const Img = styled.img`
   /* margin: 30px; */
-  width: 45px;
+  width: 30px;
 `;
 
 export default function Header() {
