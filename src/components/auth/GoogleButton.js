@@ -31,7 +31,7 @@ export default function GoogleButton() {
     const decodedToken = await jwtDecode(credentialResponse.credential);
 
     firstSignUp({
-      id: +decodedToken.sub.slice(0, 9),
+      id: decodedToken.sub.slice(0, 9),
       name: decodedToken.family_name,
       email: decodedToken.email,
     })

@@ -57,7 +57,7 @@ export default function Header(props) {
           </Link>
         )}
         <Box sx={{ display: 'flex', gap: '20px' }}>
-          {userInfoState === null ? (
+          {/* {userInfoState === null ? (
             (console.log('로그인 안됨'), (<GoogleLogin />))
           ) : (
             <Button
@@ -68,7 +68,14 @@ export default function Header(props) {
             >
               로그아웃
             </Button>
-          )}
+          )} */}
+          <Button
+            variant="text"
+            color="warning"
+            onClick={() => history.push('/set')}
+          >
+            시작하기
+          </Button>
           <Link to="/MyPage">
             <Img style={{ display: props.userDisplay }} src={user} alt="user" />
           </Link>
