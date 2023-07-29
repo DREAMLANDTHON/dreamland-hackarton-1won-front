@@ -1,18 +1,18 @@
 // GoogleButton.js
 
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import jwtDecode from "jwt-decode";
-import React, { useRef } from "react";
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
+import React, { useRef } from 'react';
 // import { userLogin, userSignup } from "../apis/users";
-import { useSetRecoilState } from "recoil";
-import { userInfoRecoil } from "../../store/atom";
+import { useSetRecoilState } from 'recoil';
+import { userInfoRecoil } from '../../store/atom';
 import {
   isLoginState,
   isRegisterModalState,
   userLoginInfo,
-} from "../../store/atom";
-import { firstSignUp } from "../../apis/member";
-import { useHistory } from "react-router-dom";
+} from '../../store/atom';
+import { firstSignUp } from '../../apis/member';
+import { useHistory } from 'react-router-dom';
 // import { useNavigate } from "react-router-dom";
 
 // const clientId = "425799046707-34ek2gt3b287jdl3knk9ib796l998trt.apps.googleusercontent.com";
@@ -42,7 +42,7 @@ export default function GoogleButton() {
           name: decodedToken.family_name,
           email: decodedToken.email,
         });
-        history.push("/set");
+        history.push('/set');
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +81,7 @@ export default function GoogleButton() {
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
-      <div style={{ display: "none" }}>
+      <div style={{ display: 'block' }}>
         <GoogleLogin
           onSuccess={(credentialResponse) => onSuccess(credentialResponse)}
           onFailure={onFailure}
