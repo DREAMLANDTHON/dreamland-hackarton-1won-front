@@ -161,7 +161,7 @@ export default function MyPage() {
       <Container>
         <Ment>
           <Title fontSize="22px">
-            {userInfo.name}님
+            {userInfo?.name}님
             <br /> 오늘도 안심하고 드세요!
           </Title>
         </Ment>
