@@ -58,7 +58,7 @@ export default function Header(props) {
         )}
         <Box sx={{ display: 'flex', gap: '20px' }}>
           {userInfoState === null ? (
-            <GoogleLogin />
+            (console.log('로그인 안됨'), (<GoogleLogin />))
           ) : (
             <Button
               onClick={handleClick}
