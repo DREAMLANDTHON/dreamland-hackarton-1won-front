@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import WholeCookie from '../imgs/whoie_cookie.png';
+import WholeBread from '../imgs/whole_bread.png';
 import theme from '../theme';
 import Header from '../components/Header';
 import { useQuery } from 'react-query';
@@ -83,7 +83,7 @@ const ProductImg = styled.img`
   border-radius: 15px;
   width: 150px;
   height: 150px;
-  object-fit: cover;
+  object-fit: cover; /* Crop the image to cover the container */
   object-position: center;
 `;
 const ProductName = styled.div`
@@ -111,10 +111,10 @@ const ProductRecommImg = styled.img`
   object-position: center;
 `;
 
-export default function CateListSnack() {
-  const { isLoading, data: snacks } = useQuery(
+export default function CateListBread() {
+  const { isLoading, data: breads } = useQuery(
     ['CateData'],
-    () => getCategorys('과자류'),
+    () => getCategorys('빵류'),
     {
       onSuccess: (data) => {
         console.log('Category data:', data);
@@ -132,16 +132,16 @@ export default function CateListSnack() {
       <Page>
         <Container>
           <TitleGrids>
-            <Logo src={WholeCookie} alt="img" />
+            <Logo src={WholeBread} alt="img" />
             <div>
-              <Title>Snack</Title>
-              <SubTitle>과자</SubTitle>
+              <Title>Bread</Title>
+              <SubTitle>빵</SubTitle>
             </div>
           </TitleGrids>
           <ItemContainer>
             <Text>글루텐 프리 인기 상품</Text>
             <RecommGrids>
-              {snacks?.slice(0, 2).map(
+              {breads?.slice(0, 2).map(
                 (item) => (
                   console.log(item),
                   (
@@ -159,25 +159,29 @@ export default function CateListSnack() {
             </RecommGrids>
           </ItemContainer>
           <ItemContainer>
-            <Text>우유 알레르기 대체 상품</Text>
-            <Grids>
-              {snacks?.slice(2, 6).map(
+            <Text>락토프리 인기 상품</Text>
+            <RecommGrids>
+              {breads?.slice(3, 5).map(
                 (item) => (
                   console.log(item),
                   (
                     <Card>
-                      <ProductImg src={item.item.imgurl1} />
+                      <div>
+                        <RedBackground>
+                          <ProductRecommImg src={item.item.imgurl1} />
+                        </RedBackground>
+                      </div>
                       <ProductName>{item.item.prdlstNm}</ProductName>
                     </Card>
                   )
                 ),
               )}
-            </Grids>
+            </RecommGrids>
           </ItemContainer>
           <ItemContainer>
-            <Text> 비건 인증 과자</Text>
+            <Text> 계란 알레르기 대체 상품 </Text>
             <Grids>
-              {snacks?.slice(6, 10).map(
+              {breads?.slice(6, 10).map(
                 (item) => (
                   console.log(item),
                   (
