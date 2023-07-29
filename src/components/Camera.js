@@ -37,7 +37,7 @@ function Camera() {
           formData,
           {
             headers: {
-              "X-OCR-SECRET": "Q2NMUUJzcWNCaFVYWklWc2Fwc0hPRnBaSkJ3Z0FSVFo=",
+              "X-OCR-SECRET": `${process.env.REACT_APP_OCR_SECRET}`,
               ...formData.getHeaders(),
             },
           }
