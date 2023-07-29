@@ -12,6 +12,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 import compressedFile from "./compressFile";
+import { ocrApi } from "../../apis/photo";
 
 export function ImageUpload() {
   const [imageUrl, setImageUrl] = useState("");
@@ -20,7 +21,6 @@ export function ImageUpload() {
     if (!inputRef.current) {
       return;
     }
-
     inputRef.current.click();
   }, []);
 
@@ -52,7 +52,9 @@ export function ImageUpload() {
         getDownloadURL(storageRef).then((downloadURL) => {
           console.log("File available at", downloadURL);
 
-          setImageUrl(downloadURL);
+          ocrApi(downloadURL).then((res) => {
+            console.log(res);
+          });
         });
       }
     );
