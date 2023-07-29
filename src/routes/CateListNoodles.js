@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import WholeCookie from '../imgs/whoie_cookie.png';
+import WholeNoodles from '../imgs/whole_noodles.png';
 import theme from '../theme';
 import Header from '../components/Header';
 import { useQuery } from 'react-query';
@@ -83,7 +83,7 @@ const ProductImg = styled.img`
   border-radius: 15px;
   width: 150px;
   height: 150px;
-  object-fit: cover;
+  object-fit: cover; /* Crop the image to cover the container */
   object-position: center;
 `;
 const ProductName = styled.div`
@@ -111,10 +111,10 @@ const ProductRecommImg = styled.img`
   object-position: center;
 `;
 
-export default function CateListSnack() {
-  const { isLoading, data: snacks } = useQuery(
+export default function CateListNoodles() {
+  const { isLoading, data: noodles } = useQuery(
     ['CateData'],
-    () => getCategorys('과자류'),
+    () => getCategorys('유탕면류'),
     {
       onSuccess: (data) => {
         console.log('Category data:', data);
@@ -132,16 +132,16 @@ export default function CateListSnack() {
       <Page>
         <Container>
           <TitleGrids>
-            <Logo src={WholeCookie} alt="img" />
+            <Logo src={WholeNoodles} alt="img" />
             <div>
-              <Title>Snack</Title>
-              <SubTitle>과자</SubTitle>
+              <Title>Noodles</Title>
+              <SubTitle>면</SubTitle>
             </div>
           </TitleGrids>
           <ItemContainer>
             <Text>글루텐 프리 인기 상품</Text>
             <RecommGrids>
-              {snacks?.slice(0, 2).map(
+              {noodles?.slice(0, 2).map(
                 (item) => (
                   console.log(item),
                   (
@@ -159,9 +159,9 @@ export default function CateListSnack() {
             </RecommGrids>
           </ItemContainer>
           <ItemContainer>
-            <Text>우유 알레르기 대체 상품</Text>
+            <Text>대두 알레르기 대체 상품</Text>
             <Grids>
-              {snacks?.slice(2, 6).map(
+              {noodles?.slice(2, 6).map(
                 (item) => (
                   console.log(item),
                   (
@@ -175,9 +175,9 @@ export default function CateListSnack() {
             </Grids>
           </ItemContainer>
           <ItemContainer>
-            <Text> 비건 인증 과자</Text>
+            <Text> 비건 인증 제과 </Text>
             <Grids>
-              {snacks?.slice(6, 10).map(
+              {noodles?.slice(6, 10).map(
                 (item) => (
                   console.log(item),
                   (

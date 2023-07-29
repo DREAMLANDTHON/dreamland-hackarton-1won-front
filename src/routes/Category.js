@@ -64,37 +64,28 @@ export default function Category() {
             <br /> 맞춤형 식품을 추천해줄게요!
           </Title>
         </Ment>
-        <Link
-          to={{
-            pathname: '/category/1',
-            state: {
-              title: 'Snack',
-              SubTitle: '과자',
-              img: 'Cookie',
-            },
-          }}
-        >
+        <Link to="/Category/1">
           <Item>
             <Title>Snack</Title>
             <SubTitle>과자</SubTitle>
             <Img src={Cookie} />
           </Item>
         </Link>
-        <Link to="/set">
+        <Link to="/Category/2">
           <Item>
             <Title style={{ justifyContent: 'flex-end' }}>Bread</Title>
             <SubTitle style={{ justifyContent: 'flex-end' }}>빵</SubTitle>
             <Img style={{ left: '0%' }} src={Bread} />
           </Item>
         </Link>
-        <Link to="/set">
+        <Link to="/category/3">
           <Item backgroundColor="#454443">
             <Title>Noodles</Title>
             <SubTitle>면</SubTitle>
             <Img src={Noodles} />
           </Item>
         </Link>
-        <Link to="/set">
+        <Link to="/category/4">
           <Item backgroundColor={theme.palette.mono.mono2}>
             <Title
               color={theme.palette.mono.mono8}

@@ -30,6 +30,8 @@ const Search = styled('div')(({ theme }) => ({
   border: `1px solid ${theme.palette.mono.mono1}`,
   borderRadius: theme.shape.borderRadius,
   marginLeft: 0,
+  display: 'flex',
+  alignItems: 'center',
   width: '90%',
   maxWidth: `${390 * 0.9}px`,
   height: '56px',

@@ -12,6 +12,8 @@ import { getFood } from '../apis/food';
 import { getProfile } from '../apis/member';
 import { useParams } from 'react-router-dom';
 import { addLike, deleteLikeFetch } from '../apis/like';
+import { useRecoilValue } from 'recoil';
+import { userInfoRecoil } from '../store/atom';
 
 const Page = styled.div`
   position: relative;
@@ -127,10 +129,11 @@ const Div = styled.div`
 `;
 
 export default function Product(props) {
+  const userInfo = useRecoilValue(userInfoRecoil);
+
   const params = useParams();
   console.log('useParam', params.productId);
 
-  const id = 1239;
   const { isLoading, data: info } = useQuery(
     ['foodData'],
     () => getFood(params.productId),
@@ -141,8 +144,8 @@ export default function Product(props) {
     },
   );
   const { isLoading: isPro, data: myAllergies } = useQuery(
-    ['foodData', id],
-    () => getProfile(id),
+    ['foodData', userInfo.id],
+    () => getProfile(userInfo.id),
     {
       onSuccess: (data) => {
         console.log('profile :', data);
@@ -164,8 +167,10 @@ export default function Product(props) {
   const toggleSaved = () => {
     setIsSaved((prevIsSaved) => !prevIsSaved);
     isSaved === false
-      ? addLike(1239, nameObject).then((res) => console.log('debug', res.data))
-      : deleteLikeFetch(1239, nameObject).then((res) =>
+      ? addLike(userInfo.id, nameObject).then((res) =>
+          console.log('debug', res.data),
+        )
+      : deleteLikeFetch(userInfo.id, nameObject).then((res) =>
           console.log('debug', res),
         );
   };
