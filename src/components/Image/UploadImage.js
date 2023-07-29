@@ -11,6 +11,20 @@
 // import ClearIcon from "@mui/icons-material/Clear";
 // import StarBorderIcon from "@mui/icons-material/StarBorder";
 
+
+import compressedFile from "./compressFile";
+import { ocrApi } from "../../apis/photo";
+
+export function ImageUpload() {
+  const [imageUrl, setImageUrl] = useState("");
+  const inputRef = useRef(null);
+  const onUploadImageButtonClick = useCallback(() => {
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
+  }, []);
+
 // import compressedFile from "./compressFile";
 
 // export function ImageUpload() {
@@ -23,6 +37,7 @@
 
 //     inputRef.current.click();
 //   }, []);
+
 
 //   const onImageChange = async (e) => {
 //     e.preventDefault();
@@ -52,11 +67,21 @@
 //         getDownloadURL(storageRef).then((downloadURL) => {
 //           console.log("File available at", downloadURL);
 
+
+          ocrApi(downloadURL).then((res) => {
+            console.log(res);
+          });
+        });
+      }
+    );
+  };
+
 //           setImageUrl(downloadURL);
 //         });
 //       }
 //     );
 //   };
+
 
 //   return (
 //     <>
