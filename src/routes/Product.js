@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Header from '../components/Header';
-import theme from '../theme';
-import Logo_White from '../imgs/Logo_White.png';
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
-import Spoon from '../imgs/Spoon.png';
-import CanEat from '../imgs/CanEat.png';
-import Saved from '../imgs/Saved.png';
-import { useQuery } from 'react-query';
-import { getFood } from '../apis/food';
-import { getProfile } from '../apis/member';
-import { useParams } from 'react-router-dom';
-import { addLike, deleteLikeFetch } from '../apis/like';
-import { useRecoilValue } from 'recoil';
-import { userInfoRecoil } from '../store/atom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Header from "../components/Header";
+import theme from "../theme";
+import Logo_White from "../imgs/Logo_White.png";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import Spoon from "../imgs/Spoon.png";
+import CanEat from "../imgs/CanEat.png";
+import Saved from "../imgs/Saved.png";
+import { useQuery } from "react-query";
+import { getFood } from "../apis/food";
+import { getProfile } from "../apis/member";
+import { useParams } from "react-router-dom";
+import { addLike, deleteLikeFetch } from "../apis/like";
+import { useRecoilValue } from "recoil";
+import { userInfoRecoil } from "../store/atom";
 
 const Page = styled.div`
   position: relative;
@@ -129,51 +129,48 @@ const Div = styled.div`
 `;
 
 export default function Product(props) {
-  const userInfo = useRecoilValue(userInfoRecoil);
-
   const params = useParams();
-  console.log('useParam', params.productId);
-
-  const { isLoading, data: info } = useQuery(
-    ['foodData'],
-    () => getFood(params.productId),
-    {
-      onSuccess: (data) => {
-        console.log('Food data:', data);
-      },
-    },
-  );
-  const { isLoading: isPro, data: myAllergies } = useQuery(
-    ['foodData', userInfo.id],
-    () => getProfile(userInfo.id),
-    {
-      onSuccess: (data) => {
-        console.log('profile :', data);
-      },
-    },
+  const { data: info } = useQuery(["foodData"], () =>
+    getFood(params.productId)
   );
 
-  const allergyArray = info?.allergy.split(', ');
-  const rawmtrlArray = info?.rawmtrl.split(', ');
+  // const userInfo = useRecoilValue(userInfoRecoil);
+  // const { isLoading: isPro, data: myAllergies } = useQuery(
+  //   ['foodData', userInfo.id],
+  //   () => getProfile(userInfo.id),
+  //   {
+  //     onSuccess: (data) => {
+  //       console.log('profile :', data);
+  //     },
+  //   },
+  // );
 
+  ////// Hard coded for testing //////
+  const myAllergies = {
+    allergies: [{ name: "토마토", id: 1 }],
+  };
+  ///////////////////////////////////
+
+  const allergyArray = info?.allergy.split(",");
+  const rawmtrlArray = info?.rawmtrl.split(",");
   const isAllergic = allergyArray?.some((allergy) =>
-    myAllergies?.allergies.some((item) => item.name === allergy),
+    myAllergies?.allergies.some((item) => item.name === allergy)
   );
 
   const [isSaved, setIsSaved] = useState(false);
-  const nameObject = {
-    name: info?.prdlstNm,
-  };
-  const toggleSaved = () => {
-    setIsSaved((prevIsSaved) => !prevIsSaved);
-    isSaved === false
-      ? addLike(userInfo.id, nameObject).then((res) =>
-          console.log('debug', res.data),
-        )
-      : deleteLikeFetch(userInfo.id, nameObject).then((res) =>
-          console.log('debug', res),
-        );
-  };
+  // const nameObject = {
+  //   name: info?.prdlstNm,
+  // };
+  // const toggleSaved = () => {
+  //   setIsSaved((prevIsSaved) => !prevIsSaved);
+  //   isSaved === false
+  //     ? addLike(userInfo.id, nameObject).then((res) =>
+  //         console.log("debug", res.data)
+  //       )
+  //     : deleteLikeFetch(userInfo.id, nameObject).then((res) =>
+  //         console.log("debug", res)
+  //       );
+  // };
 
   return (
     <>
@@ -186,17 +183,17 @@ export default function Product(props) {
             <Title>
               <Img src={Logo_White} />
               <Divider>
-                {['', '', '', '', '', '', '', '', '', '', '', ''].map(
-                  (item) => (
-                    <Div />
-                  ),
+                {["", "", "", "", "", "", "", "", "", "", "", ""].map(
+                  (_, i) => (
+                    <Div key={i} />
+                  )
                 )}
               </Divider>
             </Title>
             <SavedImg
               src={isSaved ? Saved : CanEat}
-              alt={isSaved ? 'Saved' : 'CanEat'}
-              onClick={toggleSaved}
+              alt={isSaved ? "Saved" : "CanEat"}
+              // onClick={toggleSaved}
             />
           </Grids>
 
@@ -224,13 +221,13 @@ export default function Product(props) {
           )}
 
           <Container>
-            {allergyArray?.map((allergy) => {
+            {allergyArray?.map((allergy, index) => {
               const isAllergic = myAllergies.allergies.some(
-                (item) => item.name === allergy,
+                (item) => item.name === allergy
               );
               return (
                 <Allergy
-                  key={allergy}
+                  key={index}
                   color={isAllergic ? theme.palette.subRed.main : undefined}
                 >
                   {allergy},
@@ -242,8 +239,8 @@ export default function Product(props) {
           <Ingredients>
             <Value>원재료정보</Value>
             <Container>
-              {rawmtrlArray?.map((ingre) => (
-                <Ingredient> {ingre}, </Ingredient>
+              {rawmtrlArray?.map((ingre, index) => (
+                <Ingredient key={index}> {ingre}, </Ingredient>
               ))}
             </Container>
           </Ingredients>

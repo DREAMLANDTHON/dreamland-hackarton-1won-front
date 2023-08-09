@@ -5,11 +5,12 @@ import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import backgroundImg from "../imgs/Background.png";
 import Camera from "../components/Camera";
+import { Box, CircularProgress } from "@mui/material";
 
 const Container = style.div`
   display: flex;
@@ -54,7 +55,7 @@ const CameraIconWrapper = styled("div")(({ theme }) => ({
   height: "100%",
   position: "absolute",
   right: "0%",
-  pointerEvents: "none",
+  // pointerEvents: "none",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -86,15 +87,15 @@ const CategoryButton = style.button`
   color: ${theme.palette.mono.mono8};
 `;
 
-export default function Home() {
-  const takePictureRef = useRef(null);
+export default function Home({ model }) {
+  const takePictureRef = useRef();
 
-  const onUploadImageButtonClick = useCallback(() => {
+  const onUploadImageButtonClick = () => {
     if (!takePictureRef.current) {
       return;
     }
     takePictureRef.current.click();
-  }, []);
+  };
 
   const [searchText, setSearchText] = useState("");
   const history = useHistory();
@@ -106,7 +107,7 @@ export default function Home() {
     }
   };
 
-  return (
+  return model ? (
     <>
       <Header backgroundColor={theme.palette.mono.black} />
       <Container>
@@ -124,12 +125,21 @@ export default function Home() {
             onChange={(e) => setSearchText(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-          {/* <Camera takePictureRef={takePictureRef} /> */}
+          <Camera takePictureRef={takePictureRef} model={model} />
         </Search>
         <Link to="/Category">
           <CategoryButton>나의 맞춤형 식품 찾아보기</CategoryButton>
         </Link>
       </Container>
     </>
+  ) : (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <CircularProgress />
+    </Box>
   );
 }

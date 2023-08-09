@@ -1,19 +1,22 @@
-import MyPage from './routes/MyPage';
-import CateListSnack from './routes/CateListSnack';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './routes/Home';
-import Product from './routes/Product';
-import Category from './routes/Category';
-import Login from './routes/Login';
-import styled from 'styled-components';
-import SetAllergies from './routes/SetAllergies';
-import SetSpecial from './routes/SetSpecial';
-import SetStart from './routes/SetStart';
-import SetFinish from './routes/SetFinish';
-import OCR from './routes/OCR';
-import CateListBread from './routes/CateListBread';
-import CateListNoodles from './routes/CateListNoodles';
-import CateListDrink from './routes/CateListDrink';
+import MyPage from "./routes/MyPage";
+import CateListSnack from "./routes/CateListSnack";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Product from "./routes/Product";
+import Category from "./routes/Category";
+import Login from "./routes/Login";
+import styled from "styled-components";
+import SetAllergies from "./routes/SetAllergies";
+import SetSpecial from "./routes/SetSpecial";
+import SetStart from "./routes/SetStart";
+import SetFinish from "./routes/SetFinish";
+import OCR from "./routes/OCR";
+import CateListBread from "./routes/CateListBread";
+import CateListNoodles from "./routes/CateListNoodles";
+import CateListDrink from "./routes/CateListDrink";
+import { useEffect } from "react";
+import { useState } from "react";
+import * as tmImage from "@teachablemachine/image";
 
 const Page = styled.div`
   display: flex;
@@ -28,13 +31,26 @@ const Center = styled.div`
 `;
 
 function Router() {
+  const [model, setModel] = useState(null);
+
+  useEffect(() => {
+    const loadModel = async () => {
+      const URL = process.env.REACT_APP_TM_MODEL_URL;
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
+      const model = await tmImage.load(modelURL, metadataURL);
+      setModel(model);
+    };
+    loadModel();
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>
         <Page>
           <Center>
             <Route exact path="/">
-              <Home />
+              <Home model={model} />
             </Route>
             <Route exact path="/product/:productId">
               <Product />
