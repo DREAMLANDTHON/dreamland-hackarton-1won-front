@@ -1,15 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
 const baseUrl =
-  'https://apis.data.go.kr/B553748/CertImgListServiceV2/getCertImgListServiceV2';
+  "https://apis.data.go.kr/B553748/CertImgListServiceV2/getCertImgListServiceV2";
+const serviceKey = encodeURIComponent(
+  process.env.REACT_APP_SERVICE_KEY_DECODED
+);
 
 export const getFood = async (
   // name,
   name, // 품목 이름
-  kind, // 품목 유형
+  kind // 품목 유형
 ) => {
-  let paramName = '';
-  let paramKind = '';
+  let paramName = "";
+  let paramKind = "";
 
   if (name) {
     paramName = `&prdlstNm=${encodeURIComponent(name)}`;
@@ -19,22 +22,22 @@ export const getFood = async (
   }
 
   const response = await axios.get(
-    `${baseUrl}?ServiceKey=${process.env.REACT_APP_SERVICE_KEY_DECODED}${paramName}&returnType=json${paramKind}`,
+    `${baseUrl}?ServiceKey=${serviceKey}${paramName}&returnType=json${paramKind}`
   );
-  // console.log('hello');
-  // console.log(
-  //   `${baseUrl}?ServiceKey=${process.env.REACT_APP_SERVICE_KEY_DECODED}${paramName}&returnType=json${paramKind}`,
-  // );
+  const items = response.data.body.items;
 
-  return response.data.body.items[0].item;
+  return items.length === 1
+    ? items[0].item
+    : items.find(({ item }) => item.prdlstNm === name).item;
 };
 
 export const getCategorys = async (
   kind, // 품목 유형
-  name,
+  name
 ) => {
-  let paramName = '';
-  let paramKind = '';
+  let paramName = "";
+  let paramKind = "";
+
   if (name) {
     paramName = `&prdlstNm=${encodeURIComponent(name)}`;
   }
@@ -43,13 +46,8 @@ export const getCategorys = async (
   }
 
   const response = await axios.get(
-    `${baseUrl}?ServiceKey=${process.env.REACT_APP_SERVICE_KEY_DECODED}${paramName}&returnType=json${paramKind}`,
+    `${baseUrl}?ServiceKey=${serviceKey}${paramName}&returnType=json${paramKind}`
   );
-  // console.log('bye');
-  // console.log(
-  //   `${baseUrl}?ServiceKey=${process.env.REACT_APP_SERVICE_KEY_DECODED}${paramName}&returnType=json${paramKind}`,
-  // );
-  // console.log('plz', response.data.body.items);
 
   return response.data.body.items;
 };
